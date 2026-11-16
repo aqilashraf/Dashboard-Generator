@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 st.set_page_config(
-    page_title="Dashboard Cukai",
+    page_title="Tax Violations Dashboard (SST ADM)",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded",
