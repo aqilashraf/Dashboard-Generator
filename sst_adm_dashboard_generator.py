@@ -233,7 +233,7 @@ def hbar(d, label, color=PRIMARY, height=420, count_col=None):
 # Sidebar – step 1: file
 # ============================================================
 with st.sidebar:
-    st.markdown("## 📊 Dashboard Cukai")
+    st.markdown("## 📊 Tax Violations Dashboard (SST ADM)")
     st.caption("Upload → choose view → explore")
     uploaded = st.file_uploader(
         "1 · Upload data file", type=SUPPORTED,
@@ -269,7 +269,7 @@ if uploaded is not None:
     source_name = uploaded.name
 else:
     st.markdown(
-        '<div class="hero"><div class="title">Dashboard Cukai</div>'
+        '<div class="hero"><div class="title">Tax Violations Dashboard (SST ADM)</div>'
         '<div class="sub">Upload a file and get an interactive monthly or yearly dashboard instantly.</div></div>',
         unsafe_allow_html=True,
     )
@@ -361,7 +361,7 @@ span = ""
 if not dated.empty:
     span = f" · {dated['PERIOD'].min():%b %Y} – {dated['PERIOD'].max():%b %Y}"
 st.markdown(
-    f'<div class="hero"><div class="title">Dashboard Cukai · {view}</div>'
+    f'<div class="hero"><div class="title">Tax Violations Dashboard (SST ADM) · {view}</div>'
     f'<div class="sub">{html.escape(source_name)} · {len(f):,} rekod{span}</div></div>',
     unsafe_allow_html=True,
 )
