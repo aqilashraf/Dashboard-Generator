@@ -379,7 +379,7 @@ if bad_dates or bad_amounts:
 
 total = f[COL_AMOUNT].sum()
 k = st.columns(4)
-kpi(k[0], "Jumlah Cukai", rm(total))
+kpi(k[0], "Jumlah Denda", rm(total))
 kpi(k[1], "Bilangan Rekod", f"{len(f):,}")
 kpi(k[2], "Bilangan Syarikat", f"{f[COL_COMPANY].nunique():,}")
 if len(trend) >= 1:
@@ -405,7 +405,7 @@ tab_overview, tab_trend, tab_company, tab_vio = st.tabs(
 
 # ---------- Overview ----------
 with tab_overview:
-    st.markdown(f"##### Jumlah cukai mengikut {period_name}")
+    st.markdown(f"##### Jumlah denda mengikut {period_name}")
     if trend.empty:
         st.info("No rows with a valid date to plot.")
     else:
@@ -484,7 +484,7 @@ with tab_company:
         comp_tbl, width="stretch", hide_index=True, height=360,
         column_config={
             COL_COMPANY: st.column_config.TextColumn("Nama Syarikat"),
-            "JUMLAH": st.column_config.NumberColumn("Jumlah Cukai", format="RM %.2f"),
+            "JUMLAH": st.column_config.NumberColumn("Jumlah Denda", format="RM %.2f"),
             "REKOD": st.column_config.NumberColumn("Rekod"),
             "PURATA": st.column_config.NumberColumn("Purata", format="RM %.2f"),
             "TERAKHIR": st.column_config.DatetimeColumn("Tempoh Terakhir", format="MMM YYYY"),
@@ -497,7 +497,7 @@ with tab_company:
     company = st.selectbox("Pilih syarikat", comp_tbl[COL_COMPANY], label_visibility="collapsed")
     cd = dated[dated[COL_COMPANY] == company]
     m1, m2, m3 = st.columns(3)
-    kpi(m1, "Jumlah Cukai", rm(f.loc[f[COL_COMPANY] == company, COL_AMOUNT].sum()))
+    kpi(m1, "Jumlah Denda", rm(f.loc[f[COL_COMPANY] == company, COL_AMOUNT].sum()))
     kpi(m2, "Bilangan Rekod", f"{(f[COL_COMPANY] == company).sum():,}")
     kpi(m3, "Pelanggaran berbeza", f"{f.loc[f[COL_COMPANY] == company, COL_VIOLATION].nunique():,}")
     st.markdown("")
