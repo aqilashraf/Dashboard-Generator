@@ -17,13 +17,13 @@ st.set_page_config(
 # ============================================================
 # Constants
 # ============================================================
-COL_MONTH = "BULAN"
+
 COL_COMPANY = "NAMA SYARIKAT"
 COL_VIOLATION = "JENIS PELANGGARAN SYARAT"
 COL_CODE = "KOD HASIL"
 COL_AMOUNT = "JUMLAH CUKAI"
 COL_DATE = "TARIKH BAYARAN"
-REQUIRED = [COL_MONTH, COL_COMPANY, COL_VIOLATION, COL_CODE, COL_AMOUNT, COL_DATE]
+REQUIRED = [COL_COMPANY, COL_VIOLATION, COL_CODE, COL_AMOUNT, COL_DATE]
 
 SUPPORTED = ["csv", "tsv", "txt", "xlsx", "xlsm", "xls", "ods", "json"]
 EXCEL_ENGINES = {"xlsx": "openpyxl", "xlsm": "openpyxl", "xls": "xlrd", "ods": "odf"}
@@ -294,6 +294,7 @@ if missing:
     st.info("If the column titles are not on the first row, set **Header row number** under "
             "*Advanced file options* in the sidebar.")
     st.stop()
+raw = raw.loc[:, ~raw.columns.duplicated()][REQUIRED]
 
 # ============================================================
 # Sidebar – step 2: view
