@@ -133,7 +133,7 @@ def read_file(name, data, sheet=None, header_row=1):
             df = pd.read_json(io.BytesIO(data))
         except ValueError:
             df = pd.read_json(io.BytesIO(data), lines=True)
-    else:  # csv, tsv, txt
+    else:  
         df = None
         for enc in ("utf-8-sig", "latin-1"):
             try:
@@ -144,14 +144,14 @@ def read_file(name, data, sheet=None, header_row=1):
                 continue
         if df is None:
             raise ValueError("Could not decode the file. Try saving it as UTF-8.")
-    # Normalise headers: strip tabs / extra spaces, uppercase
+   
     df.columns = [" ".join(str(c).split()).upper() for c in df.columns]
     return df
 
 
-# ============================================================
+# ===================================================
 # Cleaning helpers
-# ============================================================
+# ===================================================
 def clean_amount(s):
     if pd.api.types.is_numeric_dtype(s):
         return pd.to_numeric(s, errors="coerce")
@@ -199,7 +199,7 @@ def trend_chart(t, monthly, color=PRIMARY):
             text=t["JUMLAH"].map(short), textposition="outside", cliponaxis=False,
             hovertemplate="%{x}<br>RM %{y:,.2f}<extra></extra>",
         ))
-    # Category axis: only periods that exist in the data are shown
+    
     fig.update_xaxes(type="category")
     fig.update_yaxes(title="RM")
     return style(fig, 380, legend=False)
@@ -224,7 +224,7 @@ def hbar(d, label, color=PRIMARY, height=420, count_col=None):
     fig.update_yaxes(automargin=True)
     top = d[COL_AMOUNT].max()
     if count_col and top > 0:
-        # extra room on the right so the longer labels are not cut off
+       
         fig.update_xaxes(range=[min(0, d[COL_AMOUNT].min() * 1.1), top * 1.4])
     return style(fig, height, legend=False)
 
@@ -257,9 +257,9 @@ with st.sidebar:
                     help="Change this if your column titles are not on the first row.",
                 )
 
-# ============================================================
+# ================================================
 # Load data or show landing page
-# ============================================================
+# ================================================
 if uploaded is not None:
     try:
         raw = read_file(uploaded.name, file_bytes, sheet, header_row)
@@ -367,7 +367,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Which years exist in the uploaded file (before filters)?
+
 year_counts = df["TAHUN"].dropna().astype(int).value_counts().sort_index()
 if not year_counts.empty:
     st.caption("Tahun dalam fail: " + " · ".join(f"{y} ({n:,} rekod)" for y, n in year_counts.items()))
